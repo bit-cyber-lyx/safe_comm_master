@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: mult4_tb
+// Module Name: voter4_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,36 +24,30 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
  
-module mult4_tb();       
+module voter4_tb();       
  
-reg    a,b,c,d;         	
-reg [1:0] sel;
-wire   led;   
+reg    a,b,c,d;    
+wire   led;      	
  
 
 initial
 begin
-	a = 1;
+	a = 0;
 	b = 0;
-	c = 1;
+	c = 0;
 	d = 0;
-	sel = 2'b00;
-	#50
-	sel = 2'b10;
-	#50
-	sel = 2'b01;
-	#50
-	sel = 2'b11;
 end
-
+always #10 a = ~a;     
+always #20 b = ~b;
+always #25 c = ~c;
+always #15 d = ~d;
  
 
-mult4  mult4_inst (     
-	.a(a), 
+voter4  voter4_inst (     
+	.a(a),  
 	.b(b),
 	.c(c),
 	.d(d),
-	.sel(sel),
-	.led(led)  
+	.led(led)   
 );
 endmodule

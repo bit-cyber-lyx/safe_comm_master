@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: twist_tb
+// Module Name: coded_lock_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,23 +23,33 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+ 
+module coded_lock_tb();       
+ 
+reg    q,u,n,b,d;       
+wire   led1,led2;      	
+ 
 
-module twist_tb;
-	
-reg clk,rst;
-wire [7:0]	q;
 initial
-	begin
-		clk =0;
-		rst =0;
-		#20
-		rst =1;
-	end
-	
-always#10 clk =~clk;
-twist twist_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .cnt	(q)
+begin
+	{q,u,n,b} = 0;
+	d = 0 ;
+	#100
+	d = 1 ;
+end
+always #10 q = ~q;  
+always #20 u = ~u;
+always #25 n = ~n;
+always #15 b = ~b;
+ 
+
+coded_lock  coded_lock_inst (    
+	.q(q),     
+	.u(u),
+	.n(n),
+	.b(b),
+	.d(d),
+	.led1(led1),
+	.led2(led2)  
 );
 endmodule

@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: coded_lock_tb
+// Module Name: mult4
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,33 +23,24 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
- 
-module coded_lock_tb();       
- 
-reg    q,u,n,b,d;       
-wire   led1,led2;      	
- 
 
-initial
-begin
-	{q,u,n,b} = 0;
-	d = 0 ;
-	#100
-	d = 1 ;
-end
-always #10 q = ~q;  
-always #20 u = ~u;
-always #25 n = ~n;
-always #15 b = ~b;
- 
-
-coded_lock  coded_lock_inst (    
-	.q(q),     
-	.u(u),
-	.n(n),
-	.b(b),
-	.d(d),
-	.led1(led1),
-	.led2(led2)  
+module mult4(
+    input               a,           
+    input               b,
+    input               c,
+    input               d,
+    input       [1:0]   sel,  
+    output reg          led    	  
 );
+
+always@(sel)          
+	begin
+		case(sel)
+			2'b00: led = a;
+			2'b01: led = b;
+			2'b10: led = c;
+			2'b11: led = d;
+		endcase
+	end
+
 endmodule

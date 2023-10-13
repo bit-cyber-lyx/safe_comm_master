@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: adder_tb
+// Module Name: decode24_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,27 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
  
-module adder_tb();       
+module decode24_tb();       
  
-reg    a,b,cin;         
-wire   sum,cout;
+reg    [1:0] a;        
+wire   [3:0] led;      	
  
-
+//初始化过程块
 initial
 begin
-	a = 0;
-	b = 0;
-	cin = 0;
+	a = 2'b00;
+	#20
+	a = 2'b01;
+	#20
+	a = 2'b10;
+	#20
+	a = 2'b11;
+	#20
+	a = 2'b00;
 end
 
-always #10 a = ~a;      
-always #15 b = ~b;
-always #20 cin = ~cin;
- 
-
-adder  adder_inst (     
+decode24  decode24_inst (     
 	.a(a),    
-	.b(b),
-	.cin(cin),
-	.sum(sum), 
-	.cout(cout)   
+	.led(led)  
 );
 endmodule

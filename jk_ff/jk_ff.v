@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: comparer1
+// Module Name: jk_ff
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,17 +23,25 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module comparer1(
-    input           a       ,      
-    input           b       ,
-    output          led1    ,  
-    output          led2    ,
-    output          led3
+module jk_ff(						
+    input           clk,j,k,rst,set,	
+    output reg      q,
+    output          qb
 );
-          
-assign led1 = (!a)&b;    //a<b
-assign led2 = !(a^b);    //a=b
-assign led3 = a&(!b);    //a>b
 
+assign qb = ~q;
+always@(posedge clk or negedge rst or negedge set)
+	begin
+		if(!rst)
+			q <= 1'b0;			
+		else if (!set)
+			q <= 1'b1;  		
+		else
+			case({j,k})
+				2'b00:		q <= q;		
+				2'b01:		q <= 0;		
+				2'b10:		q <= 1;		
+				2'b11:		q <= ~q;	
+			endcase
+	end
 endmodule

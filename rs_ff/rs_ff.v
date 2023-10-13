@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: mult4
+// Module Name: rs_ff
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,23 +24,21 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module mult4(
-    input               a,           
-    input               b,
-    input               c,
-    input               d,
-    input       [1:0]   sel,  
-    output reg          led    	  
+module rs_ff( 
+    input           clk,r,s,	
+    output reg      q,			
+    output          qb			
 );
 
-always@(sel)          
+assign qb = ~q;
+
+always@(posedge clk)
 	begin
-		case(sel)
-			2'b00: led = a;
-			2'b01: led = b;
-			2'b10: led = c;
-			2'b11: led = d;
+		case({r,s})
+			2'b00:  q <= q;     
+			2'b01:  q <= 1'b1;	
+			2'b10:  q <= 1'b0;  
+			2'b11:  q <= 1'bx;  
 		endcase
 	end
-
 endmodule

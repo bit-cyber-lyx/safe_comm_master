@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: voter4_tb
+// Module Name: comparer1_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,30 +24,26 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
  
-module voter4_tb();       
+module comparer1_tb();       
  
-reg    a,b,c,d;    
-wire   led;      	
+reg    a,b;         	
+wire   led1,led2,led3;  
  
 
 initial
 begin
 	a = 0;
 	b = 0;
-	c = 0;
-	d = 0;
 end
 always #10 a = ~a;     
-always #20 b = ~b;
-always #25 c = ~c;
-always #15 d = ~d;
+always #15 b = ~b;
  
 
-voter4  voter4_inst (     
-	.a(a),  
+comparer1  comparer1_inst (     
+	.a(a),    
 	.b(b),
-	.c(c),
-	.d(d),
-	.led(led)   
+	.led1(led1), 
+	.led2(led2),
+	.led3(led3)
 );
 endmodule

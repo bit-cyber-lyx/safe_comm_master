@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: rs_ff_tb
+// Module Name: mult4_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,38 +24,36 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
  
-module rs_ff_tb();       
+module mult4_tb();       
  
-reg    clk,r,s;      
-wire   q,qb;      	 
+reg    a,b,c,d;         	
+reg [1:0] sel;
+wire   led;   
  
+
 initial
 begin
-	clk = 0;
-	r = 0;
-	s = 0;
+	a = 1;
+	b = 0;
+	c = 1;
+	d = 0;
+	sel = 2'b00;
 	#50
-	r = 0;
-	s = 1;
+	sel = 2'b10;
 	#50
-	r = 1;
-	s = 0;
+	sel = 2'b01;
 	#50
-	r = 1;
-	s = 1;
-	#50
-	r = 0;
-	s = 1;
+	sel = 2'b11;
 end
-always #10 clk = ~clk;    
 
  
 
-rs_ff  rs_ff_inst (     
-	.clk(clk),     
-	.r(r),
-	.s(s),
-	.q(q),    
-	.qb(qb)   
+mult4  mult4_inst (     
+	.a(a), 
+	.b(b),
+	.c(c),
+	.d(d),
+	.sel(sel),
+	.led(led)  
 );
 endmodule

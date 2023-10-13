@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: decode24
+// Module Name: shift7_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,20 +24,29 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module decode24(
-    input       [1:0] a     ,       
-    output reg  [3:0] led    	
-);
+module shift7_tb;
+	
+reg clk, rst;     
+reg [6:0]datain;  
+wire dataout;     
 
-
-always@(a)                    
+initial
 	begin
-		case(a)
-			2'b00: led = 4'b0001; 
-			2'b01: led = 4'b0010;
-			2'b10: led = 4'b0100;
-			2'b11: led = 4'b1000;
-		endcase
+		clk =0;
+		rst =1;
+		datain =7'b1110101; 
+		#50
+		rst =0;
+		#100
+		rst =1;
 	end
+	
+always #20 clk =~clk;   
 
+shift7 shift7_inst (
+    .clk	(clk),
+    .rst	(rst),
+    .datain	(datain),
+    .dataout(dataout)
+);
 endmodule

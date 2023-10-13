@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7
+// Module Name: comparer1
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,16 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module shift7(
-    input           clk,     
-    input           rst,	
-    input    [6:0]  datain,  
-    output          dataout 
+module comparer1(
+    input           a       ,      
+    input           b       ,
+    output          led1    ,  
+    output          led2    ,
+    output          led3
 );
-
-reg [6:0] data;
-
-always @(posedge clk)
-	if(!rst)
-		data <= datain;		
-	else
-		begin
-			data[6] <= 1'b0;
-			data[5] <= data[6];
-			data[4] <= data[5];
-			data[3] <= data[4];
-			data[2] <= data[3];
-			data[1] <= data[2];
-			data[0] <= data[1];    
-		end
-		
-assign dataout = data[0];	
+          
+assign led1 = (!a)&b;    //a<b
+assign led2 = !(a^b);    //a=b
+assign led3 = a&(!b);    //a>b
 
 endmodule

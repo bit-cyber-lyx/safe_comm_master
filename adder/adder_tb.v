@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: comparer1_tb
+// Module Name: adder_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,26 +24,29 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
  
-module comparer1_tb();       
+module adder_tb();       
  
-reg    a,b;         	
-wire   led1,led2,led3;  
+reg    a,b,cin;         
+wire   sum,cout;
  
 
 initial
 begin
 	a = 0;
 	b = 0;
+	cin = 0;
 end
-always #10 a = ~a;     
+
+always #10 a = ~a;      
 always #15 b = ~b;
+always #20 cin = ~cin;
  
 
-comparer1  comparer1_inst (     
+adder  adder_inst (     
 	.a(a),    
 	.b(b),
-	.led1(led1), 
-	.led2(led2),
-	.led3(led3)
+	.cin(cin),
+	.sum(sum), 
+	.cout(cout)   
 );
 endmodule

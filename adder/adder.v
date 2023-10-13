@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: rs_ff
+// Module Name: adder
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,21 +24,21 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module rs_ff( 
-    input           clk,r,s,	
-    output reg      q,			
-    output          qb			
+module adder(
+    input           a   ,           
+    input           b   ,
+    input           cin ,
+    output          sum ,       
+    output          cout
 );
+          
+wire 		s1,s2,s3;   
 
-assign qb = ~q;
 
-always@(posedge clk)
-	begin
-		case({r,s})
-			2'b00:  q <= q;     
-			2'b01:  q <= 1'b1;	
-			2'b10:  q <= 1'b0;  
-			2'b11:  q <= 1'bx;  
-		endcase
-	end
+xor     (s1,a,b);      
+xor     (sum,s1,cin);
+nand    (s2,a,b);	
+nand    (s3,s1,cin);
+and     (cout,s2,s3);    
+
 endmodule

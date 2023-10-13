@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: twist
+// Module Name: decode24
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,19 +24,20 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module twist #
-(
-parameter  CNT_SIZE = 8
-)
-(
-input clk,rst,          
-output reg [CNT_SIZE-1:0] cnt    	 
+module decode24(
+    input       [1:0] a     ,       
+    output reg  [3:0] led    	
 );
 
-always@(posedge clk)
-	if(!rst)
-		cnt <= 8'b0000_0001;       
-	else
-		cnt <= {~cnt[0],cnt[CNT_SIZE-1:1]}; 
-		
+
+always@(a)                    
+	begin
+		case(a)
+			2'b00: led = 4'b0001; 
+			2'b01: led = 4'b0010;
+			2'b10: led = 4'b0100;
+			2'b11: led = 4'b1000;
+		endcase
+	end
+
 endmodule

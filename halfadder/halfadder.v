@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: voter4
+// Module Name: halfadder
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,14 +24,14 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module voter4(
-    input       a   ,          
-    input       b   ,
-    input       c   ,
-    input       d   ,
-    output      led  
+module halfadder(
+    input           a   ,    
+    input           b   ,    
+    output          sum , 
+    output          cout 
 );
           
-assign led = (a&b)|(a&c)|(a&d)|(b&c&d);    
+assign sum = a ^ b; 
+assign cout = a & b;
 
 endmodule

@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: dff
+// Module Name: rs_ff_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,18 +23,39 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-module dff(				
-    input           clk,rst,d,	
-    output reg      q,
-    output          qb
+ 
+module rs_ff_tb();       
+ 
+reg    clk,r,s;      
+wire   q,qb;      	 
+ 
+initial
+begin
+	clk = 0;
+	r = 0;
+	s = 0;
+	#50
+	r = 0;
+	s = 1;
+	#50
+	r = 1;
+	s = 0;
+	#50
+	r = 1;
+	s = 1;
+	#50
+	r = 0;
+	s = 1;
+end
+always #10 clk = ~clk;    
+
+ 
+
+rs_ff  rs_ff_inst (     
+	.clk(clk),     
+	.r(r),
+	.s(s),
+	.q(q),    
+	.qb(qb)   
 );
-
-assign qb = ~q;
-
-always @( posedge clk )  
-	if(!rst)			
-		q <= 1'b0;       
-	else
-		q <= d;          
-
-endmodule 
+endmodule

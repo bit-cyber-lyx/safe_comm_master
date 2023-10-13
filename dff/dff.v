@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: ring
+// Module Name: dff
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,20 +23,18 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module ring #
-(
-parameter  CNT_SIZE = 8
-)
-(
-input wire clk,rst,           
-output reg [CNT_SIZE-1:0] cnt    
+module dff(				
+    input           clk,rst,d,	
+    output reg      q,
+    output          qb
 );
 
-always@(posedge clk)
-	if(!rst)
-		cnt <= 8'b0000_0001;       
+assign qb = ~q;
+
+always @( posedge clk )  
+	if(!rst)			
+		q <= 1'b0;       
 	else
-		cnt <= {cnt[0],cnt[CNT_SIZE-1:1]};  
-		
-endmodule
+		q <= d;          
+
+endmodule 

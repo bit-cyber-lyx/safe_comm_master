@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: dff_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,30 +23,30 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
-
+ 
+module dff_tb();       
+ 
+reg    clk,rst,d;     
+wire   q,qb;      	  
+ 
 initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
+begin
+	clk = 0;
+	rst = 0;
+	d = 0;
+	#50
+	rst = 1;
 	
-always #20 clk =~clk;   
+end
+always #10 clk = ~clk;
+always #15 d = ~d;
+ 
 
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+dff  dff_tb (      
+    .clk(clk),   
+    .rst(rst),
+    .d(d),
+    .q(q),   
+    .qb(qb)   
 );
 endmodule

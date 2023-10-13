@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: halfadder
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,14 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
-
-initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
-
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+module halfadder(
+    input           a   ,    
+    input           b   ,    
+    output          sum , 
+    output          cout 
 );
+          
+assign sum = a ^ b; 
+assign cout = a & b;
+
 endmodule

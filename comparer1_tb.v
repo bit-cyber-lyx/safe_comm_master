@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: comparer1_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,30 +23,27 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
+ 
+module comparer1_tb();       
+ 
+reg    a,b;         	
+wire   led1,led2,led3;  
+ 
 
 initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
+begin
+	a = 0;
+	b = 0;
+end
+always #10 a = ~a;     
+always #15 b = ~b;
+ 
 
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+comparer1  comparer1_inst (     
+	.a(a),    
+	.b(b),
+	.led1(led1), 
+	.led2(led2),
+	.led3(led3)
 );
 endmodule

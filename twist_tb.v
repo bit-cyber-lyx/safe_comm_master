@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: twist_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,22 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module shift7_tb;
+module twist_tb;
 	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
-
+reg clk,rst;
+wire [7:0]	q;
 initial
 	begin
 		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
 		rst =0;
-		#100
+		#20
 		rst =1;
 	end
 	
-always #20 clk =~clk;   
-
-shift7 shift7_inst (
+always#10 clk =~clk;
+twist twist_inst (
     .clk	(clk),
     .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+    .cnt	(q)
 );
 endmodule

@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: coded_lock
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,40 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
-
-initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
-
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+module coded_lock
+(
+    input    q,u,n,b,           
+    input    d,				  
+    output   led1,    	      
+    output   led2			  
 );
+
+wire  [3:0]   code;			  
+reg			  open;			  
+reg			  alarm;          
+
+assign		code = {q,u,n,b};
+
+always@(d or code)
+	if(d == 1'b1)            
+		begin
+			if(code == 4'b0101)   
+				begin
+					open = 1'b1; 
+					alarm = 1'b0; 
+				end
+			else
+				begin
+					open = 1'b0;  
+					alarm = 1'b1;
+				end
+		end
+	else
+		begin
+			open = 1'b0;
+		end
+
+assign  led1 = ~open;		
+assign	led2 = ~alarm;		
+
 endmodule

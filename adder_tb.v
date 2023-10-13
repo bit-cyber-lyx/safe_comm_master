@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: adder_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,30 +23,30 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
+ 
+module adder_tb();       
+ 
+reg    a,b,cin;         
+wire   sum,cout;
+ 
 
 initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
+begin
+	a = 0;
+	b = 0;
+	cin = 0;
+end
 
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+always #10 a = ~a;      
+always #15 b = ~b;
+always #20 cin = ~cin;
+ 
+
+adder  adder_inst (     
+	.a(a),    
+	.b(b),
+	.cin(cin),
+	.sum(sum), 
+	.cout(cout)   
 );
 endmodule

@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: rs_ff
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,21 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
-
-initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
-
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+module rs_ff( 
+    input           clk,r,s,	
+    output reg      q,			
+    output          qb			
 );
+
+assign qb = ~q;
+
+always@(posedge clk)
+	begin
+		case({r,s})
+			2'b00:  q <= q;     
+			2'b01:  q <= 1'b1;	
+			2'b10:  q <= 1'b0;  
+			2'b11:  q <= 1'bx;  
+		endcase
+	end
 endmodule

@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: ring
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -24,29 +24,19 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
-
-initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
-
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+module ring #
+(
+parameter  CNT_SIZE = 8
+)
+(
+input wire clk,rst,           
+output reg [CNT_SIZE-1:0] cnt    
 );
+
+always@(posedge clk)
+	if(!rst)
+		cnt <= 8'b0000_0001;       
+	else
+		cnt <= {cnt[0],cnt[CNT_SIZE-1:1]};  
+		
 endmodule

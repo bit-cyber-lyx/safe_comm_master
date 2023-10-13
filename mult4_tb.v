@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: mult4_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,30 +23,37 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
+ 
+module mult4_tb();       
+ 
+reg    a,b,c,d;         	
+reg [1:0] sel;
+wire   led;   
+ 
 
 initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
+begin
+	a = 1;
+	b = 0;
+	c = 1;
+	d = 0;
+	sel = 2'b00;
+	#50
+	sel = 2'b10;
+	#50
+	sel = 2'b01;
+	#50
+	sel = 2'b11;
+end
 
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+ 
+
+mult4  mult4_inst (     
+	.a(a), 
+	.b(b),
+	.c(c),
+	.d(d),
+	.sel(sel),
+	.led(led)  
 );
 endmodule

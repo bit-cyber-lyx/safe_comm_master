@@ -10,7 +10,7 @@
 //                   |_|                              
 // Create Date: 12/10/2022 08:51:30 PM
 // Design Name: 
-// Module Name: shift7_tb
+// Module Name: jk_ff_tb
 // Project Name: 
 // Target Devices: 
 // Tool Versions: 
@@ -23,30 +23,42 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
-module shift7_tb;
-	
-reg clk, rst;     
-reg [6:0]datain;  
-wire dataout;     
+ 
+module jk_ff_tb();       
+ 
+reg    clk,j,k,rst,set;         	
+wire   q,qb;      	  
+ 
 
 initial
-	begin
-		clk =0;
-		rst =1;
-		datain =7'b1110101; 
-		#50
-		rst =0;
-		#100
-		rst =1;
-	end
-	
-always #20 clk =~clk;   
+begin
+	clk = 0;
+	j = 0;
+	k = 0;
+	rst = 1;
+	set = 1;
+	#50
+	set = 0;
+	#50
+	set = 1;
+	#50
+	rst = 0;
+	#50
+	rst = 1;
+end
+always #10 clk = ~clk;     
+always #20 j = ~j;
+always #30 k = ~k;
 
-shift7 shift7_inst (
-    .clk	(clk),
-    .rst	(rst),
-    .datain	(datain),
-    .dataout(dataout)
+ 
+
+jk_ff  jk_ff_inst (      
+	.clk(clk),  
+	.j(j),
+	.k(k),
+	.rst(rst),
+	.set(set),
+	.q(q),    
+	.qb(qb)   
 );
 endmodule
